@@ -14,13 +14,14 @@ struct ContentView: View {
     
     // AlertMessage 변수선언
     @State var alertIsVisible: Bool = false
-
+    // Slider
+    @State var sliderValue: Double = 50.0
+    
     var body: some View {
         VStack {
             Spacer()
             
             // Target row.
-            
             HStack {
                 Text("Put the Bullseye as close as you can to: ")
                 Text("100")
@@ -30,10 +31,10 @@ struct ContentView: View {
             
             Spacer()
             
-            // Slider row
+            // Slider row, 1~100까지 슬라이더값 범위 지정.
             HStack {
                 Text("1")
-                Slider(value: .constant(10))
+                Slider(value: self.$sliderValue, in: 1...100)
                 Text("100")
                 
             }
@@ -50,7 +51,8 @@ struct ContentView: View {
             
             // 버튼을 탭 했을 시 나타나는 AlertMessage.
             .alert(isPresented: $alertIsVisible) { () -> Alert in
-                return Alert(title: Text("Hello SwiftUI!!"), message: Text("SwiftUI로 구현한 Alert."), dismissButton: .default(Text("확인")))
+                var roundedValue: Int = Int(self.sliderValue)
+                return Alert(title: Text("Hello Bulleye!!"), message: Text("Slider값은 \(roundedValue)."), dismissButton: .default(Text("확인")))
             }
             
             Spacer()
@@ -73,7 +75,6 @@ struct ContentView: View {
                 }
             }
             .padding(.bottom, 20)
-        
         }
     }
 }
@@ -82,8 +83,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView().previewLayout(.fixed(width: 896, height: 414))
-        
-        
         
         
         
