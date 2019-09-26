@@ -12,10 +12,12 @@ import UIKit
 // MARK: - 01. 뷰와 레이아웃부분 구조체.
 struct ContentView: View {
     
-    // AlertMessage 변수선언
+    // AlertMessage
     @State var alertIsVisible: Bool = false
     // Slider
     @State var sliderValue: Double = 50.0
+    // 슬라이더의 범위 1~100까지 정의.
+    @State var target: Int = Int.random(in: 1...100)
     
     var body: some View {
         VStack {
@@ -24,7 +26,8 @@ struct ContentView: View {
             // Target row.
             HStack {
                 Text("Put the Bullseye as close as you can to: ")
-                Text("100")
+                Text("\(self.target)")
+                //Text("100")
                     .fontWeight(.semibold)
                 
             }
@@ -52,7 +55,10 @@ struct ContentView: View {
             // 버튼을 탭 했을 시 나타나는 AlertMessage.
             .alert(isPresented: $alertIsVisible) { () -> Alert in
                 var roundedValue: Int = Int(self.sliderValue)
-                return Alert(title: Text("Hello Bulleye!!"), message: Text("Slider값은 \(roundedValue)."), dismissButton: .default(Text("확인")))
+                return Alert(title: Text("Hello Bulleye!!"), message: Text(
+                    "Slider값은 \(roundedValue).\n." +
+                    "이번 라운드 당신의 점수는 \(self.pointsForCurrentAround())입니다."
+                ), dismissButton: .default(Text("확인")))
             }
             
             Spacer()
@@ -77,6 +83,30 @@ struct ContentView: View {
             .padding(.bottom, 20)
         }
     }
+    
+    // 함수, 분기문 구현 -> 조건에 따라 값을 다르게 표현
+    func pointsForCurrentAround() -> Int {
+        
+        var difference: Int
+        var roundedValue: Int = Int(self.sliderValue.rounded())
+        
+        if roundedValue > self.target {
+            difference = roundedValue - self.target
+        } else if self.target > roundedValue {
+            
+            difference = self.target - roundedValue
+        } else {
+            
+            difference = 0
+        }
+        
+        var awardedPoints: Int = 100 - difference
+        
+        return awardedPoints
+        
+        
+    }
+    
 }
 
 // MARK: 02. 해당 뷰에 대한 미리보기 부분 역시 구조체로 선언되어 있다. macOS 10.15버전 이후부터 제공.
