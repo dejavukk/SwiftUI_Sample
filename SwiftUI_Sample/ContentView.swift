@@ -17,7 +17,7 @@ struct ContentView: View {
     // Slider
     @State var sliderValue: Double = 50.0
     // 슬라이더의 범위 1~100까지 정의.
-    @State var target: Int = Int.random(in: 1...100)
+    @State var target = Int.random(in: 1...100)
     
     var body: some View {
         VStack {
@@ -26,7 +26,7 @@ struct ContentView: View {
             // Target row.
             HStack {
                 Text("Put the Bullseye as close as you can to: ")
-                Text("\(self.target)")
+                Text("\(target)")
                 //Text("100")
                     .fontWeight(.semibold)
                 
@@ -37,9 +37,8 @@ struct ContentView: View {
             // Slider row, 1~100까지 슬라이더값 범위 지정.
             HStack {
                 Text("1")
-                Slider(value: self.$sliderValue, in: 1...100)
+                Slider(value: $sliderValue, in: 1...100)
                 Text("100")
-                
             }
             
             Spacer()
@@ -54,10 +53,10 @@ struct ContentView: View {
             
             // 버튼을 탭 했을 시 나타나는 AlertMessage.
             .alert(isPresented: $alertIsVisible) { () -> Alert in
-                var roundedValue: Int = Int(self.sliderValue)
+                let roundedValue: Int = Int(sliderValue)
                 return Alert(title: Text("Hello Bulleye!!"), message: Text(
-                    "Slider값은 \(roundedValue).\n." +
-                    "이번 라운드 당신의 점수는 \(self.pointsForCurrentAround())입니다."
+                    "Slider값은 \(roundedValue).\n" +
+                    "이번 라운드 당신의 점수는 \(pointsForCurrentRound())입니다."
                 ), dismissButton: .default(Text("확인")))
             }
             
@@ -85,22 +84,13 @@ struct ContentView: View {
     }
     
     // 함수, 분기문 구현 -> 조건에 따라 값을 다르게 표현
-    func pointsForCurrentAround() -> Int {
+    func pointsForCurrentRound() -> Int {
         
-        var difference: Int
-        var roundedValue: Int = Int(self.sliderValue.rounded())
-        
-        if roundedValue > self.target {
-            difference = roundedValue - self.target
-        } else if self.target > roundedValue {
-            
-            difference = self.target - roundedValue
-        } else {
-            
-            difference = 0
-        }
-        
-        var awardedPoints: Int = 100 - difference
+        let roundedValue = Int(sliderValue.rounded())
+        // abs() : 숫자의 절대값을 반환하는 메소드, 개발문서참조
+        // Swift언어의 특징 -> 타입 추론가능
+        let difference = abs(target - roundedValue)
+        let awardedPoints = 100 - difference
         
         return awardedPoints
         
