@@ -18,6 +18,9 @@ struct ContentView: View {
     @State var sliderValue = 50.0
     // 슬라이더의 범위 1~100까지 정의.
     @State var target = Int.random(in: 1...100)
+    @State var score = 0
+    @State var round = 1
+    
     
     var body: some View {
         VStack {
@@ -47,6 +50,8 @@ struct ContentView: View {
             Button(action: {
                 print("Button Pressed")
                 self.alertIsVisible = true
+                self.score = self.score + self.pointsForCurrentRound()
+                self.target = Int.random(in: 1...100)
             }) {
                 Text("Hit me!")
             }
@@ -54,25 +59,33 @@ struct ContentView: View {
             // 버튼을 탭 했을 시 나타나는 AlertMessage.
             .alert(isPresented: $alertIsVisible) { () -> Alert in
                 // let roundedValue = Int(sliderValue)
-                return Alert(title: Text("Hello Bulleye!!"), message: Text(
+                return Alert(title: Text("\(alertTitle())"), message: Text(
                     "Slider값은 \(sliderValueRounded()).\n" +
                     "이번 라운드 당신의 점수는 \(pointsForCurrentRound())입니다."
-                ), dismissButton: .default(Text("확인")))
+                ), dismissButton: .default(Text("확인")) {
+                    self.score = self.score + self.pointsForCurrentRound()
+                    self.target = Int.random(in: 1...100)
+                    
+                    self.round = self.round + 1
+                    
+                })
             }
             
             Spacer()
             
             // Score row.
             HStack {
-                Button(action: {}) {
+                Button(action: {
+                    self.startNewGame()
+                }) {
                     Text("시작!!")
                 }
                 Spacer()
                 Text("Score :" )
-                Text("999999999" )
+                Text("\(score)" )
                 Spacer()
                 Text("Round :" )
-                Text("999" )
+                Text("\(round)" )
                 Spacer()
                 
                 Button(action: {}) {
@@ -89,14 +102,65 @@ struct ContentView: View {
         return Int(sliderValue.rounded())
     }
     
+    func amountOff() -> Int {
+        
+        abs(target - sliderValueRounded())
+    }
+    
     // 함수, 분기문 구현 -> 조건에 따라 값을 다르게 표현
     func pointsForCurrentRound() -> Int {
         
         // abs() : 숫자의 절대값을 반환하는 메소드, 개발문서참조
         // Swift언어의 특징 -> 타입 추론가능
-        100 - abs(target - sliderValueRounded())
+        100 - amountOff()
+        
+        let maximumScore = 100
+        let difference = amountOff()
+        let bonus: Int
+        
+        if difference == 0 {
+            bonus = 100
+            
+        } else if difference == 1 {
+            bonus = 50
+            
+        } else {
+            bonus = 0
+        }
+        
+        return maximumScore - maximumScore + difference
         
     }
+    
+    func alertTitle() -> String {
+        
+        let difference = amountOff()
+        let title: String
+        
+        // 조건에 따른 AlertSheet 구현
+        if difference == 0 {
+            title = "퍼펙트!"
+        } else if difference < 5 {
+            title = "굿!"
+        } else if difference <= 10 {
+            title = "나쁘지 않아!"
+        } else {
+            
+            title = "재도전 하시겠습니까?"
+        }
+        
+        return title
+    }
+    
+    func startNewGame() {
+        
+        score = 0
+        round = 1
+        sliderValue = 50.0
+        target = Int.random(in: 1...100)
+        
+    }
+    
 }
 
 // MARK: 02. 해당 뷰에 대한 미리보기 부분 역시 구조체로 선언되어 있다. macOS 10.15버전 이후부터 제공.
