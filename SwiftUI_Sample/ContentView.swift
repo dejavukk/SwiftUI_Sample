@@ -13,9 +13,9 @@ import UIKit
 struct ContentView: View {
     
     // AlertMessage
-    @State var alertIsVisible: Bool = false
+    @State var alertIsVisible = false
     // Slider
-    @State var sliderValue: Double = 50.0
+    @State var sliderValue = 50.0
     // 슬라이더의 범위 1~100까지 정의.
     @State var target = Int.random(in: 1...100)
     
@@ -53,9 +53,9 @@ struct ContentView: View {
             
             // 버튼을 탭 했을 시 나타나는 AlertMessage.
             .alert(isPresented: $alertIsVisible) { () -> Alert in
-                let roundedValue: Int = Int(sliderValue)
+                // let roundedValue = Int(sliderValue)
                 return Alert(title: Text("Hello Bulleye!!"), message: Text(
-                    "Slider값은 \(roundedValue).\n" +
+                    "Slider값은 \(sliderValueRounded()).\n" +
                     "이번 라운드 당신의 점수는 \(pointsForCurrentRound())입니다."
                 ), dismissButton: .default(Text("확인")))
             }
@@ -83,29 +83,26 @@ struct ContentView: View {
         }
     }
     
+    // 함수로 슬라이더값 구현. 중복된 변수를 삭제.
+    func sliderValueRounded() -> Int {
+     
+        return Int(sliderValue.rounded())
+    }
+    
     // 함수, 분기문 구현 -> 조건에 따라 값을 다르게 표현
     func pointsForCurrentRound() -> Int {
         
-        let roundedValue = Int(sliderValue.rounded())
         // abs() : 숫자의 절대값을 반환하는 메소드, 개발문서참조
         // Swift언어의 특징 -> 타입 추론가능
-        let difference = abs(target - roundedValue)
-        let awardedPoints = 100 - difference
-        
-        return awardedPoints
-        
+        100 - abs(target - sliderValueRounded())
         
     }
-    
 }
 
 // MARK: 02. 해당 뷰에 대한 미리보기 부분 역시 구조체로 선언되어 있다. macOS 10.15버전 이후부터 제공.
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView().previewLayout(.fixed(width: 896, height: 414))
-        
-        
-        
         
     }
 }
