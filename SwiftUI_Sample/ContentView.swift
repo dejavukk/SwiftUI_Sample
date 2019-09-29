@@ -34,6 +34,17 @@ struct ContentView: View {
         }
     }
     
+    // LabelStyle과 동일하게 ValueStyle 정의.
+    struct ValueStyle: ViewModifier {
+        func body(content: Content) -> some View {
+            return content
+            
+                .foregroundColor(Color.yellow)
+                .font(Font.custom("Arial Rounded MT Bold", size: 24))
+                .shadow(color: Color.black, radius: 5, x: 2, y: 2)
+        }
+    }
+    
     var body: some View {
         VStack {
             Spacer()
@@ -41,7 +52,7 @@ struct ContentView: View {
             // Target row, 폰트 및 그래픽 효과.
             HStack {
                 Text("Put the Bullseye as close as you can to: ").modifier(LabelStyle())
-                Text("\(target)").modifier(LabelStyle())
+                Text("\(target)").modifier(ValueStyle())
             }
             
             Spacer()
@@ -85,18 +96,18 @@ struct ContentView: View {
                 Button(action: {
                     self.startNewGame()
                 }) {
-                    Text("시작!!").modifier(LabelStyle())
+                    Text("시작").modifier(LabelStyle())
                 }
                 Spacer()
                 Text("Score :" ).modifier(LabelStyle())
-                Text("\(score)" ).modifier(LabelStyle())
+                Text("\(score)" ).modifier(ValueStyle())
                 Spacer()
                 Text("Round :" ).modifier(LabelStyle())
-                Text("\(round)" ).modifier(LabelStyle())
+                Text("\(round)" ).modifier(ValueStyle())
                 Spacer()
                 
                 Button(action: {}) {
-                    Text("Info").modifier(LabelStyle())
+                    Text("정보").modifier(LabelStyle())
                 }
             }
             .padding(.bottom, 20)
