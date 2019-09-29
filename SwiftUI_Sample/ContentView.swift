@@ -21,27 +21,36 @@ struct ContentView: View {
     @State var score = 0
     @State var round = 1
     
+    // ViewModifier정의, 구조체로 공통의 커스텀 제작한 LabelStyle구현.
+    struct LabelStyle: ViewModifier {
+        // typealias Body = <#type#>
+        
+        func body(content: Content) -> some View {
+            return content
+            
+            .foregroundColor(Color.white)
+            .shadow(color: Color.black, radius: 5, x: 2, y: 2)
+            .font(Font.custom("Arial Rounded MT Bold", size: 18))
+        }
+    }
     
     var body: some View {
         VStack {
             Spacer()
             
-            // Target row.
+            // Target row, 폰트 및 그래픽 효과.
             HStack {
-                Text("Put the Bullseye as close as you can to: ")
-                Text("\(target)")
-                //Text("100")
-                    .fontWeight(.semibold)
-                
+                Text("Put the Bullseye as close as you can to: ").modifier(LabelStyle())
+                Text("\(target)").modifier(LabelStyle())
             }
             
             Spacer()
             
             // Slider row, 1~100까지 슬라이더값 범위 지정.
             HStack {
-                Text("1")
+                Text("1").modifier(LabelStyle())
                 Slider(value: $sliderValue, in: 1...100)
-                Text("100")
+                Text("100").modifier(LabelStyle())
             }
             
             Spacer()
@@ -53,7 +62,7 @@ struct ContentView: View {
                 self.score = self.score + self.pointsForCurrentRound()
                 self.target = Int.random(in: 1...100)
             }) {
-                Text("Hit me!")
+                Text("Hit me!").modifier(LabelStyle())
             }
             
             // 버튼을 탭 했을 시 나타나는 AlertMessage.
@@ -65,9 +74,7 @@ struct ContentView: View {
                 ), dismissButton: .default(Text("확인")) {
                     self.score = self.score + self.pointsForCurrentRound()
                     self.target = Int.random(in: 1...100)
-                    
                     self.round = self.round + 1
-                    
                 })
             }
             
@@ -78,22 +85,24 @@ struct ContentView: View {
                 Button(action: {
                     self.startNewGame()
                 }) {
-                    Text("시작!!")
+                    Text("시작!!").modifier(LabelStyle())
                 }
                 Spacer()
-                Text("Score :" )
-                Text("\(score)" )
+                Text("Score :" ).modifier(LabelStyle())
+                Text("\(score)" ).modifier(LabelStyle())
                 Spacer()
-                Text("Round :" )
-                Text("\(round)" )
+                Text("Round :" ).modifier(LabelStyle())
+                Text("\(round)" ).modifier(LabelStyle())
                 Spacer()
                 
                 Button(action: {}) {
-                    Text("Info")
+                    Text("Info").modifier(LabelStyle())
                 }
             }
             .padding(.bottom, 20)
         }
+        // 배경화면 이미지 지정, 중앙 정렬.
+        .background(Image("Background"), alignment: .center)
     }
     
     // 함수로 슬라이더값 구현. 중복된 변수를 삭제.
