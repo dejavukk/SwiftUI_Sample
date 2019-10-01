@@ -17,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		04056CB32335B7E500328FD9 /* SwiftUI_Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUI_Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04056CB32335B7E500328FD9 /* SwiftUI_BullsEye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUI_BullsEye.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04056CB62335B7E500328FD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04056CB82335B7E500328FD9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		04056CBA2335B7E500328FD9 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ContentView.swift; sourceTree = "<group>"; };
@@ -50,7 +50,7 @@
 		04056CB42335B7E500328FD9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				04056CB32335B7E500328FD9 /* SwiftUI_Sample.app */,
+				04056CB32335B7E500328FD9 /* SwiftUI_BullsEye.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,7 +95,7 @@
 			);
 			name = SwiftUI_Sample;
 			productName = SwiftUI_Sample;
-			productReference = 04056CB32335B7E500328FD9 /* SwiftUI_Sample.app */;
+			productReference = 04056CB32335B7E500328FD9 /* SwiftUI_BullsEye.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -298,7 +298,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.junhyuk.SwiftUI-Sample";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SwiftUI_BullsEye;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -318,7 +318,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.junhyuk.SwiftUI-Sample";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SwiftUI_BullsEye;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

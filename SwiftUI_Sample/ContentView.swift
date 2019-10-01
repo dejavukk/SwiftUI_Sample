@@ -143,7 +143,8 @@ struct ContentView: View {
                 Text("\(round)" ).modifier(ValueStyle())
                 Spacer()
                 
-                Button(action: {}) {
+                // NavigationBar에서 버튼을 구현하여 화면이동.
+                NavigationLink(destination: AboutView()) {
                     HStack {
                         Image("InfoIcon")
                         Text("정보").modifier(ButtonSmallTextStyle())
@@ -157,7 +158,10 @@ struct ContentView: View {
         }
         // 배경화면 이미지 지정, 중앙 정렬.
         .background(Image("Background"), alignment: .center)
-            .accentColor(midnightBlue)
+        .accentColor(midnightBlue)
+        .navigationBarTitle("Bullseye")
+        
+        
     }
     
     // 함수로 슬라이더값 구현. 중복된 변수를 삭제.
