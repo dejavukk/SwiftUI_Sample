@@ -10,6 +10,7 @@ import SwiftUI
 
 struct AboutView: View {
     
+    // 배경화면 색상.
     let beige = Color(red: 255.0 / 255.0, green: 214.0 / 255.0, blue: 179.0 / 255.0)
     
     struct AboutHeadingStyle: ViewModifier {
