@@ -157,7 +157,7 @@ struct ContentView: View {
         }
         // 배경화면 이미지 지정, 중앙 정렬.
         .background(Image("Background"), alignment: .center)
-        .accentColor(midnightBlue)
+            .accentColor(midnightBlue)
     }
     
     // 함수로 슬라이더값 구현. 중복된 변수를 삭제.
