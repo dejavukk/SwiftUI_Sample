@@ -38,7 +38,7 @@ struct ContentView: View {
         func body(content: Content) -> some View {
             return content
             
-            .foregroundColor(Color.yellow)
+            .foregroundColor(Color.green)
             .font(Font.custom("Arial Rounded MT Bold", size: 24))
             .modifier(Shadow())
         }
@@ -96,9 +96,10 @@ struct ContentView: View {
             
             // 버튼 UI구현, 버튼 탭했을 시 테스트log출력.
             Button(action: {
-                print("Button Pressed")
+                print("버튼 누름!")
                 self.alertIsVisible = true
                 self.score = self.score + self.pointsForCurrentRound()
+                // 랜덤으로 숫자 출력.
                 self.target = Int.random(in: 1...100)
             }) {
                 Text("Hit me!").modifier(ButtonLargeTextStyle())
